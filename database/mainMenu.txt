@@ -6,5 +6,3 @@ red 2. delete a contact
 red 3. edit a contact
 red 4. search contacts
 red 5. show contacts
-\n
-green >>> 

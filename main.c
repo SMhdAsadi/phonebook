@@ -1,21 +1,49 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
-#include "utils/print.h"
-#include "utils/showMenu.h"
+#include "menu/menuManager.h"
 
-void menu();
+void initializeDatabase();
 
 int main()
 {
-    menu();
+    initializeDatabase();
+    menuManager();
 
     return 0;
 }
 
-void menu()
+void initializeDatabase()
 {
-    printLoading(1);
-    show("database/mainMenu.txt");
-    getc(stdin);
+    char *fileNames[] = {"mainMenu.txt"};
+    char dirName[] = "database/";
+    char fileName[30];
+
+    FILE *file;
+
+    for (int i = 0; i < sizeof(fileNames) / sizeof(fileNames[0]); i++)
+    {
+        strcpy(fileName, dirName);
+        strcat(fileName, fileNames[i]);
+
+        file = fopen(fileName, "r");
+        if (file == NULL)
+        {
+            printf("File name; %s\n", fileName);
+            printf("Please be sure that all database files are ready\n");
+            exit(1);
+        }
+        fclose(file);
+    }
+
+    file = fopen("database/contacts.dat", "rb");
+    if (file == NULL)
+    {
+        file = fopen("database/contacts.dat", "wb");
+        if (file != NULL)
+        {
+            fclose(file);
+        }
+    }
 }

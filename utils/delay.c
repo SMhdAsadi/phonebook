@@ -12,3 +12,8 @@ void delay(int milliseconds)
         now = clock();
     }
 }
+
+void delayOneSecond()
+{
+    delay(1000);
+}

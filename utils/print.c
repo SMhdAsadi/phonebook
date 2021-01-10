@@ -1,8 +1,8 @@
+#include <string.h>
+#include <stdlib.h>
+
 #include "ansi_escapes.h"
 #include "delay.h"
-#include <string.h>
-
-#define DELAY 30
 
 void setupScreen()
 {
@@ -22,7 +22,7 @@ void printWithDelay(char *string, int length)
     {
         printf("%c", string[i]);
         fflush(stdout);
-        delay(DELAY);
+        delay(PRINT_DELAY);
     }
 }
 
@@ -54,9 +54,18 @@ void printColorful(char *string, int length, char *color)
     restoreConsole();
 }
 
-void f(char *s, int length)
+void printCenteralized(char *s, int length)
 {
     printf("---%*s%*s---\n",length + (int)strlen(s) / 2, s, length - (int)strlen(s) / 2, "");
+}
+
+void printPrompt()
+{
+    setupConsole();
+    setTextColorBright(GREEN_TXT);
+
+    printf("\n>>> ");
+    restoreConsole();
 }
 
 void printLoading(int round)
@@ -64,7 +73,7 @@ void printLoading(int round)
     setupConsole();
     setTextColorBright(CYAN_TXT);
     
-    f("Loading", 20);
+    printCenteralized("Loading", 20);
 
     for (int i = 0; i < round; i++)
     {
@@ -72,7 +81,7 @@ void printLoading(int round)
         {
             printf("%c", 178);
             fflush(stdout);
-            delay(20);
+            delay(rand() % (LOADING_DELAY * 5));
         }
 
         for (int j = 0; j < 46; j++)
@@ -80,13 +89,48 @@ void printLoading(int round)
             moveLeft(1);
             clearLineToRight();
             fflush(stdout);
-            delay(20);
+            delay(rand() % (LOADING_DELAY * 5));
         }
     }
 
     moveUp(1);
     clearScreenToBottom();
-    f("Load completed!", 20);
+    printCenteralized("Load completed!", 20);
     delay(1000);
     restoreConsole();
+}
+
+void printMenu(char *menuTextAddress)
+{
+    setupScreen();
+
+    FILE *file = fopen(menuTextAddress, "r");
+    char buff[200], color[10], *c;
+
+    while (1)
+    {
+        if (fscanf(file, "%s ", buff) == 0)
+        {
+            break;
+        }
+        while (strcmp(buff, "\\n") == 0)
+        {
+            printf("\n");
+            if (fscanf(file, "%s ", buff) == 0)
+            {
+                break;
+            }
+        }
+        strcpy(color, buff);
+
+        if ((c = fgets(buff, 200, file)) == NULL)
+        {
+            break;
+        }
+
+        printColorful(buff, strlen(buff), color);
+    }
+
+    fclose(file);
+    restoreScreen();
 }
