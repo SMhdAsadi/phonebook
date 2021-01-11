@@ -5,6 +5,30 @@
 #include "delay.h"
 #include "print.h"
 
+int isWhiteSpace(char *string)
+{
+    int allAreWhiteSpace = 1, isLetterWhiteSpace;
+    char whiteSpaces[] = {' ', '\n', '\t', '\r'};
+    
+    for (int i = 0; i < strlen(string); i++)
+    {
+        isLetterWhiteSpace = 0;
+        for (int j = 0; j < sizeof(whiteSpaces); j++)
+        {
+            if (string[i] == whiteSpaces[j])
+            {
+                isLetterWhiteSpace = 1;
+                break;
+            }
+        }
+        if (!isLetterWhiteSpace)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 int readInt()
 {
     printPrompt();
@@ -36,5 +60,24 @@ int readIntInRange(int from, int to)
         return readIntInRange(from, to);
     }
 
+    return input;
+}
+
+char *readString(int size, int havePrompt, int isRequired)
+{
+    if (havePrompt)
+    {
+        printPrompt();
+    }
+    char *input = malloc(size + 1);
+
+    fgets(input, size + 1, stdin);
+    if (isRequired && isWhiteSpace(input))
+    {
+        return NULL;
+    }
+    
+    // to ignore newline at the end
+    input[strlen(input) - 1] = '\0';
     return input;
 }

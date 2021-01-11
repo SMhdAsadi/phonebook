@@ -1,0 +1,12 @@
+black You are in 'main menu -> add contact'
+blue please give me some informatino about your contact:
+\n
+\n
+yellow - fields with * are required
+\n
+red first name*  : 
+red last name*   :
+red address      :
+red email*       :
+red phone number*:
+red home number  :

@@ -1,20 +1,21 @@
 #include "../utils/print.h"
 #include "../utils/read.h"
 #include "../utils/selection.h"
+#include "addMenu.h"
 
 void menuManager()
 {
     int choice;
 
-    printLoading(1);
+    // printLoading(1);
     printMenu("database/mainMenu.txt");
     choice = readIntInRange(1, 5);
 
-    // switch (choice)
-    // {
-    //     case ADD:
-    //         addMenu();
-    //         break;
+    switch (choice)
+    {
+        case ADD:
+            addMenu();
+            break;
     //     case DELETE:
     //         deleteMenu();
     //         break;
@@ -27,5 +28,5 @@ void menuManager()
     //     case SHOW:
     //         showMenu();
     //         break;
-    // }
+    }
 }
