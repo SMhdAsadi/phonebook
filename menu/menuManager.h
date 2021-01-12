@@ -1,1 +1,2 @@
 void menuManager();
+void mainMenu();

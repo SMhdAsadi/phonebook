@@ -9,3 +9,4 @@ int readIntInRange(int from, int to);
 char *readString(int size, int havePrompt, int isRequired);
 int getId();
 Contacts *getContacts();
+Contact *readContact(int id);

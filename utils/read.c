@@ -107,7 +107,7 @@ int getId()
         return id + 1;
     }
 
-    return 0;
+    return 1;
 }
 
 Contacts *getContacts()
@@ -130,4 +130,33 @@ Contacts *getContacts()
     fclose(file);
 
     return contacts;
+}
+
+Contact *readContact(int id)
+{
+    FILE *file = fopen("database/contacts.dat", "rb");
+    if (file == NULL)
+    {
+        return NULL;
+    }
+
+    Contact *contact = malloc(sizeof(Contact));
+    while ((fread(contact, sizeof(Contact), 1, file)) != 0)
+    {
+        if (contact->id == id)
+        {
+            fclose(file);
+            return contact;
+        }
+        else if (contact->id > id)
+        {
+            free(contact);
+            fclose(file);
+            return NULL;
+        }
+    }
+
+    fclose(file);
+    free(contact);
+    return NULL;
 }

@@ -42,7 +42,7 @@ void addMenu()
     }
     
     free(newContact);
-    menuManager();
+    mainMenu();
 }
 
 void moveCaret(int up, int right)

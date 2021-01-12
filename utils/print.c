@@ -168,6 +168,8 @@ void printHorizontalRow(int length)
 
 void printTopBar()
 {
+    setupConsole();
+    setTextColorBright(YELLOW_TXT);
     printf("%-*s%-*s%-*s%-*s%-*s\n", 
         ID_WIDTH + 2, "ID", 
         FIRST_NAME_WIDTH + 1, "FirstName",
@@ -175,6 +177,7 @@ void printTopBar()
         EMAIL_WIDTH + 1, "Email", 
         PHONE_WIDTH + 1, "PhoneNumber"
     );
+    restoreConsole();
 
     printf("\u250F");
 

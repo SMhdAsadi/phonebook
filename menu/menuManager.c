@@ -8,11 +8,19 @@
 #include <string.h>
 #include <stdlib.h>
 
+void mainMenu();
+
 void menuManager()
+{
+    printLoading(1);
+    
+    mainMenu();
+}
+
+void mainMenu()
 {
     int choice;
 
-    printLoading(1);
     printMenu("database/mainMenu.txt");
     choice = readIntInRange(1, 6);
 
@@ -40,4 +48,5 @@ void menuManager()
             exit(0);
             break;
     }
+
 }
