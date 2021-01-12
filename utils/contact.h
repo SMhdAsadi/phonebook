@@ -25,3 +25,4 @@ typedef struct _contacts
 Contacts *newContacts();
 void addContact(Contacts *contacts, Contact *contact);
 void deleteContacts(Contacts *contacts);
+void copyContact(Contact *dest, Contact *src);

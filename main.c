@@ -16,7 +16,7 @@ int main()
 
 void initializeDatabase()
 {
-    char *fileNames[] = {"mainMenu.txt"};
+    char *fileNames[] = {"mainMenu.txt", "addMenu.txt", "searchMenu.txt", "showMenu.txt"};
     char dirName[] = "database/";
     char fileName[30];
 
@@ -30,7 +30,6 @@ void initializeDatabase()
         file = fopen(fileName, "r");
         if (file == NULL)
         {
-            printf("File name; %s\n", fileName);
             printf("Please be sure that all database files are ready\n");
             exit(1);
         }
@@ -44,6 +43,8 @@ void initializeDatabase()
         if (file != NULL)
         {
             fclose(file);
+            return;
         }
     }
+    fclose(file);
 }

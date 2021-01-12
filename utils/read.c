@@ -79,7 +79,11 @@ char *readString(int size, int havePrompt, int isRequired)
     fgets(input, size + 1, stdin);
     if (isRequired && isWhiteSpace(input))
     {
-        return NULL;
+        printf("Didn't catch that!\n");
+        delayOneSecond();
+        printf("Please try again...\n");
+        delayOneSecond();
+        return readString(size, havePrompt, isRequired);
     }
     
     // to ignore newline at the end
@@ -107,13 +111,15 @@ int getId()
         return id + 1;
     }
 
+    free(lastContact);
+    fclose(file);
     return 1;
 }
 
 Contacts *getContacts()
 {
     Contacts *contacts = newContacts();
-
+ 
     FILE *file = fopen("database/contacts.dat", "rb");
     if (file == NULL)
     {
@@ -122,7 +128,6 @@ Contacts *getContacts()
     }
 
     Contact *temp = malloc(sizeof(Contact));
-
     while ((fread(temp, sizeof(Contact), 1, file)) != 0)
     {
         addContact(contacts, temp);
@@ -159,4 +164,67 @@ Contact *readContact(int id)
     fclose(file);
     free(contact);
     return NULL;
+}
+
+Contacts *searchContact(char *input, int field)
+{
+    Contacts *foundContacts = newContacts();
+    Contacts *allContacts = getContacts();
+
+    char *found = NULL;
+    Contact *contact = NULL;
+    for (int i = 0; i < allContacts->length; i++)
+    {
+        contact = malloc(sizeof(Contact));
+        copyContact(contact, &allContacts->elements[i]);
+        switch (field)
+        {
+        case 1:
+            // first name
+            found = strstr(contact->firstName, input);
+            break;
+        case 2:
+            // last name
+            found = strstr(contact->lastName, input);
+            break;
+        case 3:
+            // email 
+            found = strstr(contact->email, input);
+            break;
+        case 4:
+            // address
+            found = strstr(contact->address, input);
+            break;
+        case 5:
+            // phone number 
+            found = strstr(contact->phoneNumber, input);
+            break;
+        case 6:
+            // home number
+            found = strstr(contact->homeNumber, input);
+            break;
+        
+        default:
+            found = NULL;
+            break;
+        }
+
+        if (found)
+        {
+            addContact(foundContacts, contact);
+        }
+        else
+        {
+            free(contact);
+        }
+    }
+
+    deleteContacts(allContacts);
+    if (foundContacts->length == 0)
+    {
+        deleteContacts(foundContacts);
+        return NULL;
+    }
+
+    return foundContacts;
 }

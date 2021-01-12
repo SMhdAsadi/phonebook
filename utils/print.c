@@ -115,6 +115,12 @@ void printMenu(char *menuTextAddress)
     setupScreen();
 
     FILE *file = fopen(menuTextAddress, "r");
+    if (file == NULL)
+    {
+        char *message = "Database Error!\n";
+        printColorful(message, strlen(message), "red");
+        exit(1);
+    }
     char buff[200], color[10], *c;
 
     while (1)
@@ -131,7 +137,7 @@ void printMenu(char *menuTextAddress)
                 break;
             }
         }
-        strcpy(color, buff);
+        strncpy(color, buff, sizeof(color));
 
         if ((c = fgets(buff, 200, file)) == NULL)
         {

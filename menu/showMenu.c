@@ -10,7 +10,6 @@
 #include "../utils/delay.h"
 #include "menuManager.h"
 
-
 void readInput()
 {
     char *message = "\nEnter valid id to see a contact with details or -1 to go to main menu\n";
@@ -24,7 +23,6 @@ void readInput()
 
         if (choice == -1)
         {
-            mainMenu();
             return;
         }
 
@@ -46,9 +44,9 @@ void showMenu()
 {
     printMenu("database/showMenu.txt");
     Contacts *contacts = getContacts();    
-
     printContacts(contacts);
     readInput();
     
     deleteContacts(contacts);
+    mainMenu();
 }

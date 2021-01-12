@@ -73,23 +73,37 @@ char *getRequiredString(int size)
 
 void getContact(Contact *contact)
 {
+    char *input = NULL;
+
     moveCaret(FIELD_HEIGHT, FIELD_NAME_WIDTH);
-    strcpy(contact->firstName, getRequiredString(NAME_SIZE));
+    input = getRequiredString(NAME_SIZE);
+    strcpy(contact->firstName, input); 
+    free(input);
 
     moveCaret(0, FIELD_NAME_WIDTH);
-    strcpy(contact->lastName, getRequiredString(NAME_SIZE));
+    input = getRequiredString(NAME_SIZE);
+    strcpy(contact->lastName, input);
+    free(input);
 
     moveCaret(0, FIELD_NAME_WIDTH);
-    strcpy(contact->address, readString(ADDRESS_SIZE, 0, 0));
+    input = readString(ADDRESS_SIZE, 0, 0);
+    strcpy(contact->address, input); 
+    free(input);
 
     moveCaret(0, FIELD_NAME_WIDTH);
-    strcpy(contact->email, getRequiredString(EMAIL_SIZE));
+    input = getRequiredString(EMAIL_SIZE);
+    strcpy(contact->email, input);
+    free(input);
 
     moveCaret(0, FIELD_NAME_WIDTH);
-    strcpy(contact->phoneNumber, getRequiredString(NUMBER_SIZE));
+    input = getRequiredString(NUMBER_SIZE);
+    strcpy(contact->phoneNumber, input);
+    free(input);
     
     moveCaret(0, FIELD_NAME_WIDTH);
-    strcpy(contact->homeNumber, readString(NUMBER_SIZE, 0, 0));
+    input = readString(NUMBER_SIZE, 0, 0);
+    strcpy(contact->homeNumber, input);
+    free(input);
 
     contact->id = getId();
 }

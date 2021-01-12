@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <malloc.h>
+#include <string.h>
 
 typedef struct _contact
 {
@@ -24,9 +25,9 @@ typedef struct _contacts
 Contacts *newContacts()
 {
     Contacts *contacts = malloc(sizeof(Contacts));
-    contacts->elements = malloc(5 * sizeof(Contact));
+    contacts->elements = malloc(3 * sizeof(Contact));
     contacts->length = 0;
-    contacts->capacity = 5;
+    contacts->capacity = 3;
 
     return contacts;
 }
@@ -38,6 +39,17 @@ Contacts *doubleTheSize(Contacts *contacts)
     return contacts;
 }
 
+void copyContact(Contact *dest, Contact *src)
+{
+    dest->id = src->id;
+    strcpy(dest->firstName, src->firstName);
+    strcpy(dest->lastName, src->lastName);
+    strcpy(dest->email, src->email);
+    strcpy(dest->address, src->address);
+    strcpy(dest->phoneNumber, src->phoneNumber);
+    strcpy(dest->homeNumber, src->homeNumber);
+}
+
 void addContact(Contacts *contacts, Contact *contact)
 {
     if (contacts->length == contacts->capacity)
@@ -45,8 +57,11 @@ void addContact(Contacts *contacts, Contact *contact)
         contacts = doubleTheSize(contacts);
     }
 
-    contacts->elements[contacts->length] = *contact;
+    // copyContact(contacts->elements + contacts->length, contact);
+
+   contacts->elements[contacts->length] = *contact;
     contacts->length++;
+    // return contacts;
 }
 
 void deleteContacts(Contacts *contacts)

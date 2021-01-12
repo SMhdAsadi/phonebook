@@ -10,3 +10,4 @@ char *readString(int size, int havePrompt, int isRequired);
 int getId();
 Contacts *getContacts();
 Contact *readContact(int id);
+Contacts *searchContact(char *input, int field);

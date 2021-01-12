@@ -1,0 +1,11 @@
+black you are in 'main menu -> search menu'
+\n
+blue please select an option:
+\n
+red 1. by first name
+red 2. by last name
+red 3. by email
+red 4. by address
+red 5. by phone number
+red 6. by home number
+magenta 7. back to main menu

@@ -4,6 +4,7 @@
 #include "../utils/delay.h"
 #include "addMenu.h"
 #include "showMenu.h"
+#include "searchMenu.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -36,9 +37,9 @@ void mainMenu()
     //     case EDIT:
     //         editMenu();
     //         break;
-    //     case SEARCH:
-    //         searchMenu();
-    //         break;
+        case SEARCH:
+            searchMenu();
+            break;
         case SHOW:
             showMenu();
             break;
