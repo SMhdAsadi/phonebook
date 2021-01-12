@@ -7,12 +7,12 @@
 typedef struct _contact
 {
     int id;
-    char firstName[50];
-    char lastName[50];
-    char address[150];
-    char email[50];
-    char phoneNumber[12];
-    char homeNumber[12];
+    char firstName[NAME_SIZE];
+    char lastName[NAME_SIZE];
+    char address[ADDRESS_SIZE];
+    char email[EMAIL_SIZE];
+    char phoneNumber[NUMBER_SIZE];
+    char homeNumber[NUMBER_SIZE];
 } Contact;
 
 typedef struct _contacts

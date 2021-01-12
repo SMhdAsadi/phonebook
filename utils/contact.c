@@ -2,17 +2,22 @@
 #include <malloc.h>
 #include <string.h>
 
+#define INITIAL_CONTACT_SIZE 5
+#define NAME_SIZE 50
+#define ADDRESS_SIZE 150
+#define EMAIL_SIZE 50
+#define NUMBER_SIZE 12
+
 typedef struct _contact
 {
     int id;
-    char firstName[50];
-    char lastName[50];
-    char address[150];
-    char email[50];
-    char phoneNumber[12];
-    char homeNumber[12];
+    char firstName[NAME_SIZE];
+    char lastName[NAME_SIZE];
+    char address[ADDRESS_SIZE];
+    char email[EMAIL_SIZE];
+    char phoneNumber[NUMBER_SIZE];
+    char homeNumber[NUMBER_SIZE];
 } Contact;
-
 
 typedef struct _contacts
 {
@@ -25,18 +30,17 @@ typedef struct _contacts
 Contacts *newContacts()
 {
     Contacts *contacts = malloc(sizeof(Contacts));
-    contacts->elements = malloc(3 * sizeof(Contact));
+    contacts->elements = calloc(INITIAL_CONTACT_SIZE, sizeof(Contact));
     contacts->length = 0;
-    contacts->capacity = 3;
+    contacts->capacity = INITIAL_CONTACT_SIZE;
 
     return contacts;
 }
 
-Contacts *doubleTheSize(Contacts *contacts)
+void doubleTheSize(Contacts *contacts)
 {
-    contacts = realloc(contacts, contacts->capacity * 2);
+    contacts->elements = realloc(contacts->elements, contacts->capacity * 2 * sizeof(Contact));
     contacts->capacity *= 2;
-    return contacts;
 }
 
 void copyContact(Contact *dest, Contact *src)
@@ -54,14 +58,13 @@ void addContact(Contacts *contacts, Contact *contact)
 {
     if (contacts->length == contacts->capacity)
     {
-        contacts = doubleTheSize(contacts);
+        doubleTheSize(contacts);
     }
 
-    // copyContact(contacts->elements + contacts->length, contact);
+    copyContact(contacts->elements + contacts->length, contact);
 
-   contacts->elements[contacts->length] = *contact;
+    contacts->elements[contacts->length] = *contact;
     contacts->length++;
-    // return contacts;
 }
 
 void deleteContacts(Contacts *contacts)

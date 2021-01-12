@@ -133,6 +133,7 @@ Contacts *getContacts()
         addContact(contacts, temp);
     }
     fclose(file);
+    free(temp);
 
     return contacts;
 }
