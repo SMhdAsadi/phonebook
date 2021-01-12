@@ -4,5 +4,6 @@ enum mainMenuSelection
     DELETE,
     EDIT,
     SEARCH,
-    SHOW
+    SHOW,
+    EXIT
 };

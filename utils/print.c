@@ -3,6 +3,16 @@
 
 #include "ansi_escapes.h"
 #include "delay.h"
+#ifndef CONTACT_INCLUDED
+#include "contact.h"
+#define CONTACT_INCLUDED
+#endif
+
+#define ID_WIDTH 3
+#define FIRST_NAME_WIDTH 15
+#define LAST_NAME_WIDTH 15
+#define EMAIL_WIDTH 30
+#define PHONE_WIDTH 13
 
 void setupScreen()
 {
@@ -79,7 +89,7 @@ void printLoading(int round)
     {
         for (int j = 0; j < 46; j++)
         {
-            printf("%c", 178);
+            printf("%c", 219);
             fflush(stdout);
             delay(rand() % (LOADING_DELAY * 5));
         }
@@ -133,4 +143,105 @@ void printMenu(char *menuTextAddress)
 
     fclose(file);
     restoreScreen();
+}
+
+void printContact(Contact *contact)
+{
+    printf("Contact [\n");
+    printf("    id: %d\n", contact->id);
+    printf("    first name: %s\n", contact->firstName);
+    printf("    last name: %s\n", contact->lastName);
+    printf("    address: %s\n", contact->address);
+    printf("    email: %s\n", contact->email);
+    printf("    phone: %s\n", contact->phoneNumber);
+    printf("    home: %s\n", contact->homeNumber);
+    printf("]\n");
+}
+
+void printHorizontalRow(int length)
+{
+    for (int i = 0; i < length; i++)
+    {
+        printf("\u2501");
+    }
+}
+
+void printTopBar()
+{
+    printf("%-*s%-*s%-*s%-*s%-*s\n", 
+        ID_WIDTH + 2, "ID", 
+        FIRST_NAME_WIDTH + 1, "FirstName",
+        LAST_NAME_WIDTH + 1, "LastName", 
+        EMAIL_WIDTH + 1, "Email", 
+        PHONE_WIDTH + 1, "PhoneNumber"
+    );
+
+    printf("\u250F");
+
+    int widths[] = {ID_WIDTH, FIRST_NAME_WIDTH, LAST_NAME_WIDTH, EMAIL_WIDTH};
+
+    for (int i = 0; i < sizeof(widths) / sizeof(widths[0]); i++)
+    {
+        printHorizontalRow(widths[i]);
+        printf("\u2533");
+    }
+
+    // phone number
+    printHorizontalRow(PHONE_WIDTH);
+    printf("\u2513");
+
+    printf("\n");
+}
+
+void printMiddleBar(Contact contact)
+{
+    printf("\u2503");
+
+    printf("%-*i", ID_WIDTH, contact.id);
+    printf("\u2503");
+
+    printf("%-*.*s", FIRST_NAME_WIDTH, FIRST_NAME_WIDTH, contact.firstName);
+    printf("\u2503");
+
+    printf("%-*.*s", LAST_NAME_WIDTH, LAST_NAME_WIDTH, contact.lastName);
+    printf("\u2503");
+
+    printf("%-*.*s", EMAIL_WIDTH, EMAIL_WIDTH, contact.email);
+    printf("\u2503");
+
+    printf("%-*.*s", PHONE_WIDTH, PHONE_WIDTH, contact.phoneNumber);
+    printf("\u2503");
+
+    printf("\n");
+}
+
+void printBottomBar()
+{
+    printf("\u2517");
+
+    int widths[] = {ID_WIDTH, FIRST_NAME_WIDTH, LAST_NAME_WIDTH, EMAIL_WIDTH};
+
+    for (int i = 0; i < sizeof(widths) / sizeof(widths[0]); i++)
+    {
+        printHorizontalRow(widths[i]);
+        printf("\u253B");
+    }
+
+    // phone number
+    printHorizontalRow(PHONE_WIDTH);
+    printf("\u251B");
+
+    printf("\n");
+}
+
+void printContacts(Contacts *contacts)
+{
+    printTopBar();
+
+    for (int i = 0; i < contacts->length; i++)
+    {
+        printMiddleBar(contacts->elements[i]);
+    }
+
+    printBottomBar();
 }

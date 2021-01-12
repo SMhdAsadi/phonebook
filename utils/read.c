@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 #include "delay.h"
 #include "print.h"
+#ifndef CONTACT_INCLUDED
+#include "contact.h"
+#define CONTACT_INCLUDED
+#endif
 
 int isWhiteSpace(char *string)
 {
@@ -80,4 +85,49 @@ char *readString(int size, int havePrompt, int isRequired)
     // to ignore newline at the end
     input[strlen(input) - 1] = '\0';
     return input;
+}
+
+int getId()
+{
+    Contact *lastContact = malloc(sizeof(Contact));
+
+    FILE *file = fopen("database/contacts.dat", "rb");
+    if (file == NULL)
+    {
+        free(lastContact);
+        return -1;
+    }
+
+    fseek(file, -1 * sizeof(Contact), SEEK_END);
+    if ((fread(lastContact, sizeof(Contact), 1, file) ) != 0)
+    {
+        int id = lastContact->id;
+        free(lastContact);
+        fclose(file);
+        return id + 1;
+    }
+
+    return 0;
+}
+
+Contacts *getContacts()
+{
+    Contacts *contacts = newContacts();
+
+    FILE *file = fopen("database/contacts.dat", "rb");
+    if (file == NULL)
+    {
+        deleteContacts(contacts);
+        return NULL;
+    }
+
+    Contact *temp = malloc(sizeof(Contact));
+
+    while ((fread(temp, sizeof(Contact), 1, file)) != 0)
+    {
+        addContact(contacts, temp);
+    }
+    fclose(file);
+
+    return contacts;
 }

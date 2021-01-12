@@ -1,0 +1,5 @@
+black you are in 'main menu -> show menu'
+\n
+\n
+blue your Contacts:
+black --------------------------------------------------

@@ -90,4 +90,6 @@ void getContact(Contact *contact)
     
     moveCaret(0, FIELD_NAME_WIDTH);
     strcpy(contact->homeNumber, readString(NUMBER_SIZE, 0, 0));
+
+    contact->id = getId();
 }

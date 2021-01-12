@@ -6,6 +6,7 @@
 
 typedef struct _contact
 {
+    int id;
     char firstName[50];
     char lastName[50];
     char address[150];
@@ -14,4 +15,13 @@ typedef struct _contact
     char homeNumber[12];
 } Contact;
 
-void printContact(Contact *contact);
+typedef struct _contacts
+{
+    Contact *elements;
+    int length;
+    int capacity;
+} Contacts;
+
+Contacts *newContacts();
+void addContact(Contacts *contacts, Contact *contact);
+void deleteContacts(Contacts *contacts);
