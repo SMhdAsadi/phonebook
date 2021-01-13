@@ -20,11 +20,11 @@ void delete()
 {
     int choosedId = 0, deleteSucceed = 0;
     char *message = NULL;
-    Contacts *contacts = NULL;
+    ContactArray *contacts = NULL;
 
     while (1)
     {
-        contacts = getContacts();
+        contacts = readContacts();
         if (contacts == NULL)
         {
             message = "\nCannot open database!\n";
@@ -33,7 +33,7 @@ void delete()
             exit(1);
         }
         printContacts(contacts);
-        deleteContacts(contacts);
+        deleteContactArray(contacts);
 
         choosedId = readInt();
 
@@ -43,7 +43,7 @@ void delete()
             return;
         }
 
-        deleteSucceed = deleteContact(choosedId);
+        deleteSucceed = deleteContactById(choosedId);
         if (deleteSucceed)
         {
             message = "\nDeleted contact!\n\n";

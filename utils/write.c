@@ -9,7 +9,7 @@
 #include "print.h"
 #include "delay.h"
 
-int writeContact(Contact *contact)
+int appendContact(Contact *contact)
 {
     FILE *file = fopen("database/contacts.dat", "ab");
     if (file == NULL)
@@ -22,7 +22,7 @@ int writeContact(Contact *contact)
     return 1;
 }
 
-int deleteContact(int id)
+int deleteContactById(int id)
 {
     char *message = NULL;
 

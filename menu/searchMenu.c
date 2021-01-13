@@ -4,6 +4,7 @@
 
 #include "../utils/print.h"
 #include "../utils/read.h"
+#include "../utils/selection.h"
 #include "menuManager.h"
 
 void search();
@@ -19,7 +20,7 @@ void search()
 {
     int choice;
     char *message = NULL, *input = NULL;
-    Contacts *foundContacts = NULL;
+    ContactArray *foundContacts = NULL;
 
     while (1)
     {
@@ -27,49 +28,43 @@ void search()
 
         switch (choice)
         {
-            case 1:
-                // first name
+            case FIRST_NAME:
                 message = "\nPlease enter first name to search:\n";
                 printColorful(message, strlen(message), "yellow");
                 input = readString(NAME_SIZE, 1, 1);
-                foundContacts = searchContact(input, 1);
+                foundContacts = searchForContacts(input, 1);
                 break;
-            case 2:
-                // last name
+            case LAST_NAME:
                 message = "\nPlease enter last name to search:\n";
                 printColorful(message, strlen(message), "yellow");
                 input = readString(NAME_SIZE, 1, 1);
-                foundContacts = searchContact(input, 2);
+                foundContacts = searchForContacts(input, 2);
                 break;
-            case 3:
-                // email
+            case EMAIL:
                 message = "\nPlease enter email to search:\n";
                 printColorful(message, strlen(message), "yellow");
                 input = readString(EMAIL_SIZE, 1, 1);
-                foundContacts = searchContact(input, 3);
+                foundContacts = searchForContacts(input, 3);
                 break;
-            case 4:
-                // address
+            case ADDRESS:
                 message = "\nPlease enter address to search:\n";
                 printColorful(message, strlen(message), "yellow");
                 input = readString(ADDRESS_SIZE, 1, 1);
-                foundContacts = searchContact(input, 4);
+                foundContacts = searchForContacts(input, 4);
                 break;
-            case 5:
-                // phone number
+            case PHONE_NUMBER:
                 message = "\nPlease enter phone number to search:\n";
                 printColorful(message, strlen(message), "yellow");
                 input = readString(NUMBER_SIZE, 1, 1);
-                foundContacts = searchContact(input, 5);
+                foundContacts = searchForContacts(input, 5);
                 break;
-            case 6:
-                // home number
+            case HOME_NUMBER:
                 message = "\nPlease enter home number to search:\n";
                 printColorful(message, strlen(message), "yellow");
                 input = readString(NUMBER_SIZE, 1, 1);
-                foundContacts = searchContact(input, 6);
+                foundContacts = searchForContacts(input, 6);
                 break;
-            case 7:
+            case MAIN_MENU:
                 mainMenu();
                 return;
                 break;
@@ -86,7 +81,7 @@ void search()
             message = "\nFound some contacts!\n\n";
             printColorful(message, strlen(message), "cyan");
             printContacts(foundContacts);
-            deleteContacts(foundContacts);
+            deleteContactArray(foundContacts);
         }
     }
 }

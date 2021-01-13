@@ -24,23 +24,23 @@ typedef struct _contacts
     Contact *elements;
     int length;
     int capacity;
-} Contacts;
+} ContactArray;
 
 
-Contacts *newContacts()
+ContactArray *newContactArray()
 {
-    Contacts *contacts = calloc(1, sizeof(Contacts));
-    contacts->elements = calloc(INITIAL_CONTACT_SIZE, sizeof(Contact));
-    contacts->length = 0;
-    contacts->capacity = INITIAL_CONTACT_SIZE;
+    ContactArray *contactArray = calloc(1, sizeof(ContactArray));
+    contactArray->elements = calloc(INITIAL_CONTACT_SIZE, sizeof(Contact));
+    contactArray->length = 0;
+    contactArray->capacity = INITIAL_CONTACT_SIZE;
 
-    return contacts;
+    return contactArray;
 }
 
-void doubleTheSize(Contacts *contacts)
+void doubleTheSize(ContactArray *contactArray)
 {
-    contacts->elements = realloc(contacts->elements, contacts->capacity * 2 * sizeof(Contact));
-    contacts->capacity *= 2;
+    contactArray->elements = realloc(contactArray->elements, contactArray->capacity * 2 * sizeof(Contact));
+    contactArray->capacity *= 2;
 }
 
 void copyContact(Contact *dest, Contact *src)
@@ -54,21 +54,21 @@ void copyContact(Contact *dest, Contact *src)
     strcpy(dest->homeNumber, src->homeNumber);
 }
 
-void addContact(Contacts *contacts, Contact *contact)
+void addContact(ContactArray *contactArray, Contact *contact)
 {
-    if (contacts->length == contacts->capacity)
+    if (contactArray->length == contactArray->capacity)
     {
-        doubleTheSize(contacts);
+        doubleTheSize(contactArray);
     }
 
-    copyContact(contacts->elements + contacts->length, contact);
+    copyContact(contactArray->elements + contactArray->length, contact);
 
-    contacts->elements[contacts->length] = *contact;
-    contacts->length++;
+    contactArray->elements[contactArray->length] = *contact;
+    contactArray->length++;
 }
 
-void deleteContacts(Contacts *contacts)
+void deleteContactArray(ContactArray *contactArray)
 {
-    free(contacts->elements);
-    free(contacts);
+    free(contactArray->elements);
+    free(contactArray);
 }

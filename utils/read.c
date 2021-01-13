@@ -5,6 +5,7 @@
 
 #include "delay.h"
 #include "print.h"
+#include "selection.h"
 #ifndef CONTACT_INCLUDED
 #include "contact.h"
 #define CONTACT_INCLUDED
@@ -91,7 +92,7 @@ char *readString(int size, int havePrompt, int isRequired)
     return input;
 }
 
-int getId()
+int readNextId()
 {
     Contact *lastContact = malloc(sizeof(Contact));
 
@@ -116,29 +117,29 @@ int getId()
     return 1;
 }
 
-Contacts *getContacts()
+ContactArray *readContacts()
 {
-    Contacts *contacts = newContacts();
+    ContactArray *contactArray = newContactArray();
  
     FILE *file = fopen("database/contacts.dat", "rb");
     if (file == NULL)
     {
-        deleteContacts(contacts);
+        deleteContactArray(contactArray);
         return NULL;
     }
 
     Contact *temp = malloc(sizeof(Contact));
     while ((fread(temp, sizeof(Contact), 1, file)) != 0)
     {
-        addContact(contacts, temp);
+        addContact(contactArray, temp);
     }
     fclose(file);
     free(temp);
 
-    return contacts;
+    return contactArray;
 }
 
-Contact *readContact(int id)
+Contact *readContactById(int id)
 {
     FILE *file = fopen("database/contacts.dat", "rb");
     if (file == NULL)
@@ -167,10 +168,10 @@ Contact *readContact(int id)
     return NULL;
 }
 
-Contacts *searchContact(char *input, int field)
+ContactArray *searchForContacts(char *input, int field)
 {
-    Contacts *foundContacts = newContacts();
-    Contacts *allContacts = getContacts();
+    ContactArray *foundContacts = newContactArray();
+    ContactArray *allContacts = readContacts();
 
     char *found = NULL;
     Contact *contact = NULL;
@@ -180,28 +181,22 @@ Contacts *searchContact(char *input, int field)
         copyContact(contact, &allContacts->elements[i]);
         switch (field)
         {
-        case 1:
-            // first name
+        case FIRST_NAME:
             found = strstr(contact->firstName, input);
             break;
-        case 2:
-            // last name
+        case LAST_NAME:
             found = strstr(contact->lastName, input);
             break;
-        case 3:
-            // email 
+        case EMAIL:
             found = strstr(contact->email, input);
             break;
-        case 4:
-            // address
+        case ADDRESS:
             found = strstr(contact->address, input);
             break;
-        case 5:
-            // phone number 
+        case PHONE_NUMBER:
             found = strstr(contact->phoneNumber, input);
             break;
-        case 6:
-            // home number
+        case HOME_NUMBER:
             found = strstr(contact->homeNumber, input);
             break;
         
@@ -220,10 +215,10 @@ Contacts *searchContact(char *input, int field)
         }
     }
 
-    deleteContacts(allContacts);
+    deleteContactArray(allContacts);
     if (foundContacts->length == 0)
     {
-        deleteContacts(foundContacts);
+        deleteContactArray(foundContacts);
         return NULL;
     }
 

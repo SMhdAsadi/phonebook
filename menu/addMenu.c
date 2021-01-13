@@ -16,12 +16,12 @@ void addMenu()
 
     printMenu("database/addMenu.txt");
     getContact(newContact);
-    newContact->id = getId();
+    newContact->id = readNextId();
 
 
     int isSuccess;
     char *message;
-    isSuccess = writeContact(newContact);
+    isSuccess = appendContact(newContact);
     if (isSuccess)
     {
         message = "\nContact has been added to phoneBook!\n";

@@ -26,7 +26,7 @@ void readInput()
             return;
         }
 
-        contact = readContact(choice);
+        contact = readContactById(choice);
         if (contact == NULL)
         {
             message = "No contact found with this id\n";
@@ -43,10 +43,11 @@ void readInput()
 void showMenu()
 {
     printMenu("database/showMenu.txt");
-    Contacts *contacts = getContacts();    
+    
+    ContactArray *contacts = readContacts();    
     printContacts(contacts);
     readInput();
     
-    deleteContacts(contacts);
+    deleteContactArray(contacts);
     mainMenu();
 }

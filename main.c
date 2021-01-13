@@ -16,7 +16,8 @@ int main()
 
 void initializeDatabase()
 {
-    char *fileNames[] = {"mainMenu.txt", "addMenu.txt", "searchMenu.txt", "showMenu.txt"};
+    char *fileNames[] = {"mainMenu.txt", "addMenu.txt", "searchMenu.txt", 
+                         "showMenu.txt", "deleteMenu.txt", "editMenu.txt"};
     char dirName[] = "database/";
     char fileName[30];
 

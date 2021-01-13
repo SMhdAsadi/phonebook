@@ -3,7 +3,9 @@
 #define EMAIL_SIZE 50
 #define NUMBER_SIZE 12
 
-
+/*
+    a struct for demonstrating one Contact
+*/
 typedef struct _contact
 {
     int id;
@@ -15,14 +17,33 @@ typedef struct _contact
     char homeNumber[NUMBER_SIZE];
 } Contact;
 
+/*
+    a struct acted as dynamic array for Contact
+*/
 typedef struct _contacts
 {
     Contact *elements;
     int length;
     int capacity;
-} Contacts;
+} ContactArray;
 
-Contacts *newContacts();
-void addContact(Contacts *contacts, Contact *contact);
-void deleteContacts(Contacts *contacts);
+
+/*
+    creates and return a new contact dynamic array, external free needed
+*/
+ContactArray *newContactArray();
+
+/*
+    adds a contact to the contact dynamic array
+*/
+void addContact(ContactArray *contactArray, Contact *contact);
+
+/*
+    frees allocated memory for the contact dynamic array
+*/
+void deleteContactArray(ContactArray *contacts);
+
+/*
+    copies contact src to contact dest
+*/
 void copyContact(Contact *dest, Contact *src);

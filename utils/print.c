@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "ansi_escapes.h"
 #include "delay.h"
@@ -38,6 +39,7 @@ void printWithDelay(char *string, int length)
 
 void printColorful(char *string, int length, char *color)
 {
+    setupConsole();
     Color newColor;
     if (strcasecmp(color, "red") == 0)
         newColor = RED_TXT;
@@ -80,6 +82,7 @@ void printPrompt()
 
 void printLoading(int round)
 {
+    srand(time(NULL));
     setupConsole();
     setTextColorBright(CYAN_TXT);
     
@@ -118,6 +121,7 @@ void printMenu(char *menuTextAddress)
     if (file == NULL)
     {
         char *message = "Database Error!\n";
+        restoreConsole();
         printColorful(message, strlen(message), "red");
         exit(1);
     }
@@ -144,11 +148,11 @@ void printMenu(char *menuTextAddress)
             break;
         }
 
+        restoreConsole();
         printColorful(buff, strlen(buff), color);
     }
 
     fclose(file);
-    restoreScreen();
 }
 
 void printContact(Contact *contact)
@@ -243,13 +247,13 @@ void printBottomBar()
     printf("\n");
 }
 
-void printContacts(Contacts *contacts)
+void printContacts(ContactArray *contactArray)
 {
     printTopBar();
 
-    for (int i = 0; i < contacts->length; i++)
+    for (int i = 0; i < contactArray->length; i++)
     {
-        printMiddleBar(contacts->elements[i]);
+        printMiddleBar(contactArray->elements[i]);
     }
 
     printBottomBar();

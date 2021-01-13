@@ -15,7 +15,7 @@ void mainMenu();
 
 void menuManager()
 {
-    printLoading(1);
+    printLoading(3);
     
     mainMenu();
 }

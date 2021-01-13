@@ -14,7 +14,7 @@ void edit();
 void editMenu()
 {
     printMenu("database/editMenu.txt");
-    
+
     edit();
 }
 
@@ -23,12 +23,12 @@ void edit()
     int choosedId = 0, editSucceed = 0;
     char *message = NULL;
 
-    Contacts *contacts = NULL;
+    ContactArray *contacts = NULL;
     Contact *contact = NULL;
 
     while (1)
     {
-        contacts = getContacts();
+        contacts = readContacts();
         if (contacts == NULL)
         {
             message = "\nCannot open database!\n";
@@ -37,7 +37,7 @@ void edit()
             exit(1);
         }
         printContacts(contacts);
-        deleteContacts(contacts);
+        deleteContactArray(contacts);
 
         choosedId = readInt();
 
@@ -47,7 +47,7 @@ void edit()
             return;
         }
 
-        contact = readContact(choosedId);
+        contact = readContactById(choosedId);
         if (contact == NULL)
         {
             message = "\nCannot Edit: no contact found with that id\n\n";
