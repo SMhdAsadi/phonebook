@@ -2,7 +2,6 @@
 #include "../utils/read.h"
 #include "../utils/delay.h"
 #include "../utils/write.h"
-#include "../utils/ansi_escapes.h"
 #include "menuCommon.h"
 #include "menuManager.h"
 
@@ -57,10 +56,12 @@ void edit()
         else
         {
             printContact(contact);
+            free(contact);
 
-            Contact *newContact = malloc(sizeof(Contact));
             char *message = "\nfirst name*  :\nlast name*   :\naddress      :\nemail*       :\nphone number*:\nhome number  :\n";
             printColorful(message, strlen(message), "red");
+
+            Contact *newContact = malloc(sizeof(Contact));
             getContact(newContact);
             newContact->id = choosedId;
 
