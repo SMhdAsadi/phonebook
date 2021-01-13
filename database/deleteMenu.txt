@@ -1,0 +1,5 @@
+black you are in 'Main menu -> Delete menu'
+\n
+blue here you can see your contacts
+blue select an id to delete of -1 to go to main menu
+black -----------------------------------------------

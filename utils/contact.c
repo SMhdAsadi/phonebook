@@ -29,7 +29,7 @@ typedef struct _contacts
 
 Contacts *newContacts()
 {
-    Contacts *contacts = malloc(sizeof(Contacts));
+    Contacts *contacts = calloc(1, sizeof(Contacts));
     contacts->elements = calloc(INITIAL_CONTACT_SIZE, sizeof(Contact));
     contacts->length = 0;
     contacts->capacity = INITIAL_CONTACT_SIZE;

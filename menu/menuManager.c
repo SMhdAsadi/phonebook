@@ -5,6 +5,7 @@
 #include "addMenu.h"
 #include "showMenu.h"
 #include "searchMenu.h"
+#include "deleteMenu.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -31,9 +32,9 @@ void mainMenu()
         case ADD:
             addMenu();
             break;
-    //     case DELETE:
-    //         deleteMenu();
-    //         break;
+        case DELETE:
+            deleteMenu();
+            break;
     //     case EDIT:
     //         editMenu();
     //         break;

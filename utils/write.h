@@ -3,3 +3,4 @@
 #endif
 
 int writeContact(Contact *contact);
+int deleteContact(int id);
