@@ -3,6 +3,7 @@
 #include "../utils/selection.h"
 #include "../utils/delay.h"
 #include "addMenu.h"
+#include "editMenu.h"
 #include "showMenu.h"
 #include "searchMenu.h"
 #include "deleteMenu.h"
@@ -35,9 +36,9 @@ void mainMenu()
         case DELETE:
             deleteMenu();
             break;
-    //     case EDIT:
-    //         editMenu();
-    //         break;
+        case EDIT:
+            editMenu();
+            break;
         case SEARCH:
             searchMenu();
             break;

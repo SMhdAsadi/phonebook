@@ -1,0 +1,5 @@
+black you are in 'main menu -> edit menu'
+\n
+blue you can see your contacts down here
+blue please select an id to edit or -1 to go to main menu
+black ----------------------------------------------------
