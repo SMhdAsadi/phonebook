@@ -189,60 +189,69 @@ void printTopBar()
     );
     restoreConsole();
 
-    printf("\u250F");
-
-    int widths[] = {ID_WIDTH, FIRST_NAME_WIDTH, LAST_NAME_WIDTH, EMAIL_WIDTH};
-
-    for (int i = 0; i < sizeof(widths) / sizeof(widths[0]); i++)
+    for (int i = 0; i < 80; i++)
     {
-        printHorizontalRow(widths[i]);
-        printf("\u2533");
+        printf("#");
     }
 
-    // phone number
-    printHorizontalRow(PHONE_WIDTH);
-    printf("\u2513");
+    // printf("\u250F");
+
+    // int widths[] = {ID_WIDTH, FIRST_NAME_WIDTH, LAST_NAME_WIDTH, EMAIL_WIDTH};
+
+    // for (int i = 0; i < sizeof(widths) / sizeof(widths[0]); i++)
+    // {
+    //     printHorizontalRow(widths[i]);
+    //     printf("\u2533");
+    // }
+
+    // // phone number
+    // printHorizontalRow(PHONE_WIDTH);
+    // printf("\u2513");
 
     printf("\n");
 }
 
 void printMiddleBar(Contact contact)
 {
-    printf("\u2503");
+    printf(" ");
 
     printf("%-*i", ID_WIDTH, contact.id);
-    printf("\u2503");
+    printf(" ");
 
     printf("%-*.*s", FIRST_NAME_WIDTH, FIRST_NAME_WIDTH, contact.firstName);
-    printf("\u2503");
+    printf(" ");
 
     printf("%-*.*s", LAST_NAME_WIDTH, LAST_NAME_WIDTH, contact.lastName);
-    printf("\u2503");
+    printf(" ");
 
     printf("%-*.*s", EMAIL_WIDTH, EMAIL_WIDTH, contact.email);
-    printf("\u2503");
+    printf(" ");
 
     printf("%-*.*s", PHONE_WIDTH, PHONE_WIDTH, contact.phoneNumber);
-    printf("\u2503");
+    printf(" ");
 
     printf("\n");
 }
 
 void printBottomBar()
 {
-    printf("\u2517");
-
-    int widths[] = {ID_WIDTH, FIRST_NAME_WIDTH, LAST_NAME_WIDTH, EMAIL_WIDTH};
-
-    for (int i = 0; i < sizeof(widths) / sizeof(widths[0]); i++)
+    for (int i = 0; i < 80; i++)
     {
-        printHorizontalRow(widths[i]);
-        printf("\u253B");
+        printf("#");
     }
+    // printf("\u2517");
 
-    // phone number
-    printHorizontalRow(PHONE_WIDTH);
-    printf("\u251B");
+    // int widths[] = {ID_WIDTH, FIRST_NAME_WIDTH, LAST_NAME_WIDTH, EMAIL_WIDTH};
+
+    // for (int i = 0; i < sizeof(widths) / sizeof(widths[0]); i++)
+    // {
+    //     printHorizontalRow(widths[i]);
+    //     printf("\u253B");
+    // }
+
+    // // phone number
+    // printHorizontalRow(PHONE_WIDTH);
+    // printf("\u251B");
 
     printf("\n");
 }
