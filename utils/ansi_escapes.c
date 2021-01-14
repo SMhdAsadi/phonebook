@@ -47,7 +47,7 @@ void setupConsole(void) {
 
 void restoreConsole(void) {
     // Reset colors
-    printf("\x1b[0m");    
+    // printf("\x1b[0m");    
     
     // Reset console mode
     if(!SetConsoleMode(stdoutHandle, outModeInit) || !SetConsoleMode(stdinHandle, inModeInit)) {
